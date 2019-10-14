@@ -31,11 +31,14 @@ class ProductPageLocators():
     # Buttons
     BUTTON_ADD_BASKET = (By.CSS_SELECTOR, ".btn-add-to-basket") 
     BUTTON_WRITE_REVIEW = (By.CSS_SELECTOR, "#write_review") 
-    # TODO: Review fields
+    # Review fields
     REVIEW_TITLE = (By.CSS_SELECTOR, "#id_title") 
     REVIEW_SCORE = (By.CSS_SELECTOR, "#id_score") 
     REVIEW_BODY= (By.CSS_SELECTOR, "#id_body") 
     REVIEW_NAME= (By.CSS_SELECTOR, "#id_name") 
     REVIEW_EMAIL = (By.CSS_SELECTOR, "#id_email") 
+    # Negative testing fields
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success") 
+
 
   

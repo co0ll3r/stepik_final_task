@@ -23,10 +23,13 @@ class ProductPage(BasePage):
     def should_be_write_review_button(self):
         assert self.is_element_present(*ProductPageLocators.BUTTON_WRITE_REVIEW), "Write a review button is not presented"
 
-    def should_add_product_to_basket(self):
-        url = self.browser.current_url
+    def add_product_to_basket(self):
         add_button = self.browser.find_element(*ProductPageLocators.BUTTON_ADD_BASKET)
         add_button.click()
+
+    def should_add_product_to_basket(self):
+        url = self.browser.current_url
+        self.add_product_to_basket()
         if "promo=" in url:
             main_page = MainPage(self.browser, url)
             main_page.solve_quiz_and_get_code()
@@ -47,6 +50,11 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.REVIEW_NAME), "Review name field is not presented"
         assert self.is_element_present(*ProductPageLocators.REVIEW_EMAIL), "Review email field is not presented"
 
-
-
+    #negative test
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "Element is present, when expected not to be!"
+        
+    #negative test
+    def should_message_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Element is present, when expected not to be!"
 
