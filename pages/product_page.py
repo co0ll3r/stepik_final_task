@@ -1,6 +1,8 @@
+import math
 from .base_page import BasePage
 from .main_page import MainPage
 from .locators import ProductPageLocators
+from selenium.common.exceptions import NoAlertPresentException 
 
 class ProductPage(BasePage):
     def should_be_product_page(self):
@@ -11,6 +13,20 @@ class ProductPage(BasePage):
         self.should_add_product_to_basket()
         self.should_be_write_review_form()
 
+    def solve_quiz_and_get_code(self):
+        alert = self.browser.switch_to.alert
+        x = alert.text.split(" ")[2]
+        answer = str(math.log(abs((12 * math.sin(float(x))))))
+        alert.send_keys(answer)
+        alert.accept()
+        try:
+            alert = self.browser.switch_to.alert
+            alert_text = alert.text
+            print(f"Your code: {alert_text}")
+            alert.accept()
+        except NoAlertPresentException:
+            print("No second alert presented")
+ 
     def should_be_product_url(self):
         assert "catalogue" in self.browser.current_url, "There is no catalogue word in URL"
         
@@ -31,8 +47,7 @@ class ProductPage(BasePage):
         url = self.browser.current_url
         self.add_product_to_basket()
         if "promo=" in url:
-            main_page = MainPage(self.browser, url)
-            main_page.solve_quiz_and_get_code()
+            self.solve_quiz_and_get_code()
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text 
         product_cost = self.browser.find_element(*ProductPageLocators.PRODUCT_COST).text
         basket_name = self.browser.find_element(*ProductPageLocators.BASKET_NAME).text
