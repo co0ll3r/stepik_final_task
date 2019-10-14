@@ -27,10 +27,12 @@ def test_guest_can_add_product_to_basket(browser):
     product_page.open()
     product_page.should_be_product_page()
 
-@pytest.mark.parametrize('link', ['0','1','2','3','4','5','6','7','8','9'])
+@pytest.mark.parametrize('link', ['0','1','2','3','4','5','6',
+                                    pytest.param('7', marks = pytest.mark.xfail),
+                                    '8','9'])
 def test_guest_should_see_product_promo_offer_pages(browser, link):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer" + link
     product_page = ProductPage(browser, link)
     product_page.open()
-    product_page.should_be_product_page()
+    product_page.should_add_product_to_basket()
 

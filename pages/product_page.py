@@ -30,14 +30,12 @@ class ProductPage(BasePage):
         if "promo=" in url:
             main_page = MainPage(self.browser, url)
             main_page.solve_quiz_and_get_code()
-        else:
-            product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text 
-            product_cost = self.browser.find_element(*ProductPageLocators.PRODUCT_COST).text
-            basket_name = self.browser.find_element(*ProductPageLocators.BASKET_COST).text
-            basket_cost = self.browser.find_element(*ProductPageLocators.BASKET_COST).text
-            assert product_name in basket_name, ("Product name isn't equal to basket name after adding:",
-                    str(product_name), str(basket_name))
-            assert product_cost in basket_cost, "Product cost isn't equal to basket cost after adding"
+        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text 
+        product_cost = self.browser.find_element(*ProductPageLocators.PRODUCT_COST).text
+        basket_name = self.browser.find_element(*ProductPageLocators.BASKET_NAME).text
+        basket_cost = self.browser.find_element(*ProductPageLocators.BASKET_COST).text
+        assert product_name == basket_name, (f"Product name isn't equal to basket name after adding: {product_name} != {basket_name}")
+        assert product_cost == basket_cost, (f"Product cost isn't equal to basket cost after adding: {product_cost} != {basket_cost}")
 
     def should_be_write_review_form(self):
         review_button = self.browser.find_element(*ProductPageLocators.BUTTON_WRITE_REVIEW)

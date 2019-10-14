@@ -26,7 +26,7 @@ class ProductPageLocators():
     PRODUCT_COST = (By.CSS_SELECTOR, ".product_main .price_color") 
     PRODUCT_AVAILABILITY = (By.CSS_SELECTOR, ".product_main .availability") 
     PRODUCT_INSTOCK = (By.CSS_SELECTOR, ".product_main .instock") 
-    BASKET_NAME = (By.CSS_SELECTOR, "#messages .alert-success strong")
+    BASKET_NAME = (By.CSS_SELECTOR, "#messages>:nth-child(1) strong")
     BASKET_COST = (By.CSS_SELECTOR, "#messages .alert-info strong")
     # Buttons
     BUTTON_ADD_BASKET = (By.CSS_SELECTOR, ".btn-add-to-basket") 
