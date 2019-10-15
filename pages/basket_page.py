@@ -1,7 +1,7 @@
 from .locators import BasePageLocators
 from .base_page import BasePage
 
-class CartPage(BasePage):
+class BasketPage(BasePage):
     def should_basket_be_empty(self):
         self.should_not_be_products()
         self.should_be_empty_cart_message()

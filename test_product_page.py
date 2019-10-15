@@ -1,6 +1,6 @@
 import pytest
 from .pages.product_page import ProductPage
-from .pages.cart_page import CartPage
+from .pages.basket_page import BasketPage
 
 @pytest.mark.skip()
 def test_guest_can_add_product_to_basket(browser):
@@ -47,7 +47,7 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
 
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = CartPage(browser, link)
+    page = BasketPage(browser, link)
     page.open()
     page.go_to_basket_page()
     page.should_basket_be_empty()
@@ -58,7 +58,7 @@ def test_guest_will_see_product_added_in_basket(browser):
     product_page = ProductPage(browser, link)
     product_page.open()
     product_page.add_product_to_basket()
-    page = CartPage(browser, link)
+    page = BasketPage(browser, link)
     page.go_to_basket_page()
     page.should_basket_be_empty()
  
