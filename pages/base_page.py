@@ -1,5 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
@@ -14,7 +15,7 @@ class BasePage:
     def open(self):
         self.browser.get(self.url)
 
-    def is_element_present(self, how, what):
+    def is_element_present(self, how, what): 
         try:
             self.browser.find_element(how, what)
         except NoSuchElementException:
@@ -26,9 +27,15 @@ class BasePage:
        login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
        login_link.click() 
 
+    def go_to_basket_page(self):
+        try: 
+            page_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        except ElementNotInteractableException: 
+            page_link = self.browser.find_element(*BasePageLocators.BASKET_LINK_ALTERNATIVE)
+        page_link.click() 
+
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
-
 
     def is_not_element_present(self, how, what, timeout = 4):
         try:
